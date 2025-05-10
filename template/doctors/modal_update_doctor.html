@@ -1,0 +1,57 @@
+<div class="modal-header bg-primary text-white">
+    <h5 class="modal-title fw-bold">
+        <i class="fas fa-edit me-2"></i>Editar Doctor
+    </h5>
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body">
+    <form id="formUpdateDoctor" method="post" action="{% url 'core:doctor_update' doctor.id %}">
+        {% csrf_token %}
+        <input type="hidden" name="id" value="{{ doctor.id }}">
+        
+        <div class="mb-3">
+            <label for="name" class="form-label fw-semibold">Nombre</label>
+            <input type="text" class="form-control shadow-sm" name="name" required 
+                   value="{{ doctor.name }}">
+        </div>
+        
+        <div class="mb-3">
+            <label for="specialty" class="form-label fw-semibold">Especialidad</label>
+            <select class="form-select shadow-sm" name="specialty" required>
+                <option value="" disabled>Seleccione una especialidad</option>
+                {% for value, label in SPECIALTY_CHOICES %}
+                    <option value="{{ value }}" {% if doctor.specialty == value %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <div class="mb-3">
+            <label for="honorarios" class="form-label fw-semibold">Honorarios</label>
+            <div class="input-group">
+                <span class="input-group-text">$</span>
+                <input type="number" step="0.01" class="form-control shadow-sm" 
+                       name="honorarios" required value="{{ doctor.honorarios|stringformat:'f' }}">
+            </div>
+        </div>
+        
+        <div class="mb-3">
+            <label for="phone" class="form-label fw-semibold">Teléfono</label>
+            <input type="tel" class="form-control shadow-sm" name="phone" required 
+                   value="{{ doctor.phone }}">
+        </div>
+        
+        <div class="mb-3">
+            <label for="address" class="form-label fw-semibold">Dirección</label>
+            <textarea class="form-control shadow-sm" name="address" rows="2">{{ doctor.address }}</textarea>
+        </div>
+        
+        <div class="modal-footer border-top-0">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                <i class="fas fa-times me-2"></i>Cancelar
+            </button>
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-save me-2"></i>Actualizar
+            </button>
+        </div>
+    </form>
+</div>

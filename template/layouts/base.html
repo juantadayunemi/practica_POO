@@ -1,0 +1,74 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{title}}</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link href={% static 'css/styles.css' %} rel="stylesheet">
+
+  {% block extra_css %}
+  {% endblock %}
+
+</head>
+<body>
+  
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
+      <div class="container">
+       <a class="navbar-brand" href="{% url 'home' %}">MediConsult<span class="text-secondary">Pro</span></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav mx-auto">
+            <li class="nav-item">
+              <a class="nav-link active" href="#">Inicio</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Características</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Testimonios</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Precios</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href={% url 'core:doctor_list' %}>Doctores</a>
+            </li>
+          </ul>
+
+          <div class="d-flex">
+              <a href="#" class="btn btn-outline-primary me-2 text-nowrap">
+                  <i class="fas fa-sign-in-alt me-1"></i> Iniciar Sesión
+                  </a>
+                  <a href="#" class="btn btn-primary text-nowrap">
+                      <i class="fas fa-user-plus me-1"></i> Registrarse
+              </a>
+            </div>
+
+        </div>
+      </div>
+    </nav>
+
+    {% block content %}
+    {% endblock content %}
+    
+        <!-- Bootstrap JS Bundle with Popper (LOCAL) -->
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+
+    {% block extra_js %}
+    {% endblock %}  
+
+</body>
+ 

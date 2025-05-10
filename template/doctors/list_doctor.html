@@ -1,0 +1,121 @@
+{% extends "home.html" %}
+
+{% load static %}
+
+{% block title %}
+Directorio Médico
+{% endblock %}
+
+
+{% block extra_css %}
+<link href={% static 'css/tablestyle.css' %} rel="stylesheet">
+{% endblock %}
+
+
+{% block content %}
+
+<!-- Contenido principal -->
+<div class="container">
+    <header class="page-header">
+        <h1 class="display-5 fw-bold text-primary">
+            <i class="fas fa-user-md me-2"></i>Directorio de Doctores
+        </h1>
+        <p class="lead text-muted">Listado de profesionales médicos</p>
+    </header>
+    <form action="" style="max-width: 450px;">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Buscar x nombre..." name="q"
+                value="{{ request.GET.q }}">
+            <button class="btn btn-outline-success" data-bs-toggle="tooltip"
+                data-bs-title="Escriba parte del apellido y click en buscar">
+                Buscar
+            </button>
+        </div>
+    </form>
+
+    <!-- Botón para nuevo registro -->
+    <div class="d-flex justify-content-end mb-4">
+        <a href="#" class="btn btn-success text-light" id="btnNewDoctor">
+            <i class="fas fa-plus me-2"></i>Nuevo Doctor
+        </a>
+    </div>
+
+    <!-- Tabla de doctores -->
+    <div class="card mb-4">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Especialidad</th>
+                            <th scope="col">Honorarios</th>
+                            <th scope="col">Teléfono</th>
+                            <th scope="col" class="text-center">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for doctor in doctors %}
+                        <tr>
+                            <th scope="row">{{doctor.id}}</th>
+                            <td>{{doctor.name}}</td>
+                            <td>
+                                <span class="badge bg-danger">{{doctor.specialty}}</span>
+                            </td>
+                            <td>{{doctor.honorarios}}</td>
+                            <td>{{doctor.phone}}</td>
+                            <td class="text-center">
+                                <button type="button" class="btn btn-sm btn-primary me-1 btn-edit-doctor" data-id="{{ doctor.id }}">
+                                    <i class="fas fa-edit"></i> Editar
+                                </button>
+                                <a href="{% url 'core:doctor_delete' doctor.id %}" class="btn btn-sm btn-danger">
+                                    <i class="fas fa-trash-alt"></i> Eliminar
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Paginación -->
+    <nav aria-label="Page navigation" class="mb-4">
+        <ul class="pagination justify-content-center">
+            <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Anterior</a>
+            </li>
+            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#">Siguiente</a>
+            </li>
+        </ul>
+    </nav>
+
+</div>
+
+<!-- Modal General -->
+<div class="modal fade modal-doctor" id="modalGeneral" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" id="modalGeneralContent">
+            <!-- Aquí se inyectará el HTML -->
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/show_modal.js' %}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        setupModalForm('btnNewDoctor', "{% url 'core:doctor_create' %}");
+        setupUpdateModal('.btn-edit-doctor');
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,56 @@
+<div class="modal-header bg-primary text-white">
+    <h5 class="modal-title fw-bold text-white">
+        <i class="fas fa-user-plus me-2"></i>Agregar Nuevo Doctor
+    </h5>
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body">
+    <form id="formCreateDoctor" method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="name" class="form-label fw-semibold">Nombre</label>
+            <input type="text" class="form-control shadow-sm" name="name" required placeholder="Ej: Dr. Juan Pérez">
+        </div>
+        <div class="mb-3">
+            <label for="specialty" class="form-label fw-semibold">Especialidad</label>
+            <select class="form-select shadow-sm" name="specialty" required>
+                <option value="" selected disabled>Seleccione una especialidad</option>
+                <option value="Alergología">Alergología</option>
+                <option value="Anestesiología">Anestesiología</option>
+                <option value="Cardiología">Cardiología</option>
+                <option value="Cirugía General">Cirugía General</option>
+                <option value="Dermatología">Dermatología</option>
+                <option value="Endocrinología">Endocrinología</option>
+                <option value="Gastroenterología">Gastroenterología</option>
+                <option value="Geriatría">Geriatría</option>
+                <option value="Ginecología">Ginecología</option>
+                <option value="Hematología">Hematología</option>
+                <option value="Infectología">Infectología</option>
+                <option value="Neumología">Neumología</option>  
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="honorarios" class="form-label fw-semibold">Honorarios</label>
+            <div class="input-group">
+                <span class="input-group-text">$</span>
+                <input type="number" step="0.01" class="form-control shadow-sm" name="honorarios" required placeholder="0.00">
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="phone" class="form-label fw-semibold">Teléfono</label>
+            <input type="tel" class="form-control shadow-sm" name="phone" required placeholder="Ej: +51 987654321">
+        </div>
+        <div class="mb-3">
+            <label for="address" class="form-label fw-semibold">Dirección</label>
+            <textarea class="form-control shadow-sm" name="address" rows="2" placeholder="Clínica u hospital donde atiende"></textarea>
+        </div>
+        <div class="modal-footer border-top-0">
+            <button type="button" class="btn btn-outline-secondary btn-cancel" data-bs-dismiss="modal">
+                <i class="fas fa-times me-2"></i>Cancelar
+            </button>
+            <button type="submit" class="btn btn-save">
+                <i class="fas fa-save me-2"></i>Guardar
+            </button>
+        </div>
+    </form>
+</div>
